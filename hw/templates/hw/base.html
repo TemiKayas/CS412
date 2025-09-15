@@ -1,0 +1,26 @@
+{% load static %}
+<html>
+    <head> 
+        <title> Home </title>
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
+    </head>
+
+    <body> 
+        <nav>
+            <li>
+                <a href="{% url 'home_page' %}"> Home </a>
+            </li>
+            <li>
+                <a href="{% url 'about_page' %}"> About </a>
+            </li>
+        </nav>
+        {% block content %}
+        {% endblock %}
+
+        <footer>
+            <p> This is the footer to my website</p>
+        </footer>
+   
+    </body>
+
+</html>

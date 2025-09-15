@@ -1,0 +1,15 @@
+{# This is the daily quote page. It displays a random quote and image from the dictionarys. #}
+{% extends "quotes/base.html" %}
+
+    {% block content %}
+        <div class="content">
+            <h1>Daily Marcus Aurelius Quote</h1>
+            
+            <blockquote>
+                <p>"{{ random_quote.text }}"</p>
+                <footer>— {{ random_quote.author }}</footer>
+            </blockquote>
+
+            <img src="{{ image_url }}" alt="Marcus Aurelius">
+        </div>
+        {% endblock %}

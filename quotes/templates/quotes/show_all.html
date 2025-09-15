@@ -1,0 +1,21 @@
+{# This is the show all page with shows all the images and quotes from the dictionarys #}
+{% extends "quotes/base.html" %}
+
+    {% block content %}
+        <div class="content">
+            <h1>All Marcus Aurelius Quotes</h1>
+
+            {% for quote in global_quotes.values %}
+                <blockquote>
+                    <p>"{{ quote.text }}"</p>
+                    <footer>— {{ quote.author }}</footer>
+                </blockquote>
+            {% endfor %}
+            
+            <h2 style="text-align: center; margin-top: 40px; color: #2c3e50;">Images</h2>
+            {% for image in image_urls.values %}
+                <img src="{{ image.url }}" alt="Marcus Aurelius">
+            {% endfor %}
+        </div>
+
+    {% endblock %}

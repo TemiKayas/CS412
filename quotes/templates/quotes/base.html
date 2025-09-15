@@ -1,0 +1,32 @@
+{# This is the base template for the quotes app. It includes the navigation bar and the footer. #}
+{% load static %}
+<html>
+    <head> 
+        <title> Home </title>
+        <link rel="stylesheet" href="{% static 'quotes.css' %}">
+    </head>
+
+    <body> 
+        <nav>
+            <ul>
+                <li>
+                    <a href="{% url 'quote' %}">Home</a>
+                </li>
+                <li>
+                    <a href="{% url 'show_all' %}">All Quotes</a>
+                </li>
+                <li>
+                    <a href="{% url 'about_page' %}">About</a>
+                </li>
+            </ul>
+        </nav>
+        {% block content %}
+        {% endblock %}
+
+        <footer>
+            <p> This page was created by Artemios Kayas for CS412 assignment 1</p>
+        </footer>
+   
+    </body>
+
+</html>
