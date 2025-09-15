@@ -1,3 +1,6 @@
+# File: views.py 
+# Author: Artemios Kayas (akayas@bu.edu) 
+# Description: Views page to display all my templates and holds my context dictionarys
 from re import I
 from django.shortcuts import render
 from django.http import HttpRequest, HttpResponse
