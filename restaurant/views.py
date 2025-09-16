@@ -1,19 +1,16 @@
 from re import I
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.http import HttpRequest, HttpResponse
-import random
 # Create your views here.
+
 def main(request):
-    response_text = "This is the main page"
-    
-    return HttpResponse(response_text)
+    template_name = "restaurant/main.html"
+    return render(request, template_name)
 
 def order(request):
-    response_text = "This is the order page"
-    
-    return HttpResponse(response_text)
+    template_name = "restaurant/order.html"
+    return render(request, template_name)
 
 def confirmation(request):
-    response_text = "This is the confirmation page"
-    
-    return HttpResponse(response_text)
+    template_name = "restaurant/confirmation.html"    
+    return render(request, template_name)
