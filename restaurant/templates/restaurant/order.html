@@ -5,7 +5,49 @@
 
     {% block content %}
         <div class="content">
-            <h1>Welcome to the order Page</h1>
+            <h1>Order Page, Select what you want to order</h1>
             <p>Please fill out the form to order your food.</p>
+
+            <form action="">
+                <h3>Today's Special</h3>
+                <div>
+                    <input type="checkbox" id="special" name="special" value="{{ daily_special }}">
+                    <label for="special"><strong>{{ daily_special }} - $8.99</strong></label>
+                </div>
+
+                <h3>Pizza Options:</h3>
+                <div>
+                    <input type="checkbox" id="cheese" name="pizza" value="Large Cheese Pizza">
+                    <label for="cheese">Large Cheese Pizza - $10.99</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="pepperoni" name="pizza" value="Large Pepperoni Pizza">
+                    <label for="pepperoni">Large Pepperoni Pizza - $12.99</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="margherita" name="pizza" value="Large Margherita Pizza">
+                    <label for="margherita">Large Margherita Pizza - $11.99</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="supreme" name="pizza" value="Large Supreme Pizza">
+                    <label for="supreme">Large Supreme Pizza - $14.99</label>
+                </div>
+
+                <h3>Customer Information:</h3>
+                <div>
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name">
+                </div>
+                <div>
+                    <label for="phone">Phone:</label>
+                    <input type="text" id="phone" name="phone">
+                </div>
+                <div>
+                    <label for="address">Address:</label>
+                    <input type="text" id="address" name="address">
+                </div>
+                <br>
+                <input type="submit">
+            </form>
         </div>
     {% endblock %}
