@@ -5,34 +5,60 @@
 
     {% block content %}
         <div class="content">
+            {# page header and instructions #}
             <h1>Order Page, Select what you want to order</h1>
             <p>Please fill out the form to order your food.</p>
 
-            <form action="">
+            {# main order form #}
+            <form action="{% url 'confirmation' %}" method="POST">
+                {% csrf_token %}
+                
+                {# daily special section #}
                 <h3>Today's Special</h3>
                 <div>
                     <input type="checkbox" id="special" name="special" value="{{ daily_special }}">
                     <label for="special"><strong>{{ daily_special }} - $8.99</strong></label>
                 </div>
 
-                <h3>Pizza Options:</h3>
+                <h3>Pizza Options ($12.99 each):</h3>
                 <div>
                     <input type="checkbox" id="cheese" name="pizza" value="Large Cheese Pizza">
-                    <label for="cheese">Large Cheese Pizza - $10.99</label>
+                    <label for="cheese">Large Cheese Pizza</label>
                 </div>
                 <div>
                     <input type="checkbox" id="pepperoni" name="pizza" value="Large Pepperoni Pizza">
-                    <label for="pepperoni">Large Pepperoni Pizza - $12.99</label>
+                    <label for="pepperoni">Large Pepperoni Pizza</label>
                 </div>
                 <div>
                     <input type="checkbox" id="margherita" name="pizza" value="Large Margherita Pizza">
-                    <label for="margherita">Large Margherita Pizza - $11.99</label>
+                    <label for="margherita">Large Margherita Pizza</label>
                 </div>
                 <div>
                     <input type="checkbox" id="supreme" name="pizza" value="Large Supreme Pizza">
-                    <label for="supreme">Large Supreme Pizza - $14.99</label>
+                    <label for="supreme">Large Supreme Pizza</label>
+                </div>
+                <div>
+                  Add toppings to any pizza (+$1.50 each):
+                 
+                        <input type="checkbox" id="bacon" name="toppings" value="bacon">
+                        <label for="bacon">Bacon</label>
+                   
+                        <input type="checkbox" id="bbq_sauce" name="toppings" value="bbq_sauce">
+                        <label for="bbq_sauce">BBQ Sauce</label>
+                
+                        <input type="checkbox" id="chicken" name="toppings" value="chicken">
+                        <label for="chicken">Chicken</label>
+                    
+                        <input type="checkbox" id="broccoli" name="toppings" value="broccoli">
+                        <label for="broccoli">Broccoli</label>
+                    
+                </div>
+                <div>
+                    <label for="special_instructions">Special Instructions:</label>
+                    <input type="text" id="special_instructions" name="special_instructions">
                 </div>
 
+                {# customer details for delivery #}
                 <h3>Customer Information:</h3>
                 <div>
                     <label for="name">Name:</label>

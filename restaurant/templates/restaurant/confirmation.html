@@ -5,7 +5,24 @@
 
     {% block content %}
         <div class="content">
-            <h1>Welcome to the confirmation Page</h1>
-            <p>This is the order confirmation page for the restaurant app.</p>
+            {# confirmation message and thanks #}
+            <h1>Order Confirmation</h1>
+            <p>Thank you {{ name }}! Your order has been placed.</p>
+            
+            {# order details and total cost #}
+            <h2>Your Order:</h2>
+            <p>Special: {{ special }}</p>
+            <p>Pizzas: {{ pizzas|join:", " }}</p>
+            <p>Toppings: {{ toppings|join:", " }}</p>
+            <p>Instructions: {{ special_instructions }}</p>
+            
+            <p><strong>Total: ${{ total }}</strong></p>
+            
+            {# delivery information and timing #}
+            <h2>Delivery Info:</h2>
+            <p>Name: {{ name }}</p>
+            <p>Phone: {{ phone }}</p>
+            <p>Address: {{ address }}</p>
+            <p>Ready in {{ ready_minutes }} minutes</p>
         </div>
     {% endblock %}

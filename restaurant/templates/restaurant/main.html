@@ -5,8 +5,27 @@
 
     {% block content %}
         <div class="content">
-            <h1>Welcome to the Main Page</h1>
-            <p>This is the main page for the restaurant app.</p>
-            <p>Please select an option from the navigation bar.</p>
+            {# restaurant name and photo section #}
+            <div>
+                <h1>Petros Pizzeria</h1>
+                <img src="https://s3-media0.fl.yelpcdn.com/bphoto/PH0ye7UpXmg6mqwm2t_aXw/348s.jpg" alt="Petros Pizzeria">
+            </div>
+            
+            {# basic restaurant information #}
+            <div class="restaurant-info">
+                <h2>Location</h2>
+                <p>Sudbury, Massachusetts</p>
+                
+                {# hours displayed in simple table #}
+                <h2>Hours of Operation</h2>
+                <table>
+                    <tr>
+                        <td>Monday - Sunday</td>
+                        <td>9:00 AM - 9:00 PM</td>
+                    </tr>
+                </table>
+                
+                <p>Please select an option from the navigation bar to place an order.</p>
+            </div>
         </div>
     {% endblock %}
