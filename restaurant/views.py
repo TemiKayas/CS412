@@ -3,15 +3,17 @@ from django.shortcuts import redirect, render
 from django.http import HttpRequest, HttpResponse
 import random
 import time
-# Create your views here.
+# create your views here.
 
 def main(request):
     '''Home page that shows the image and name of the restaurant'''
+    # display the main restaurant page
     template_name = "restaurant/main.html"
     return render(request, template_name)
 
 def order(request):
     '''Order page that shows the daily special and the pizza options'''
+    # list of daily specials to choose from
     specials_list = [
         "Tzatziki sauce with extra garlic",
         "Fried potato balls with cheese and bacon",
@@ -21,6 +23,7 @@ def order(request):
         "Cheesy fries with bacon",
     ]
     
+    # pick a random special for today
     context = {
         "daily_special": random.choice(specials_list)
     }
@@ -43,6 +46,7 @@ def confirmation(request):
 
         total = 0
         
+        # calculate the total cost of the order
         if special:
             total += 8.99
             
@@ -51,6 +55,8 @@ def confirmation(request):
         total += len(toppings) * 1.50
 
         ready_minutes = random.randint(30, 60)
+        # calculate when the order will be ready
+        readytime = time.ctime(time.time() + (ready_minutes * 60))
 
         context = {
             "special": special,
@@ -61,7 +67,7 @@ def confirmation(request):
             "phone": phone,
             "address": address,
             "total": total,
-            "ready_minutes": ready_minutes,
+            "readytime": readytime,
         }
         
         return render(request, template_name, context)
