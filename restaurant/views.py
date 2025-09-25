@@ -7,12 +7,14 @@ import time
 
 def main(request):
     '''Home page that shows the image and name of the restaurant'''
+
     # display the main restaurant page
     template_name = "restaurant/main.html"
     return render(request, template_name)
 
 def order(request):
     '''Order page that shows the daily special and the pizza options'''
+    
     # list of daily specials to choose from
     specials_list = [
         "Tzatziki sauce with extra garlic",
@@ -32,6 +34,7 @@ def order(request):
 
 def confirmation(request):
     '''Confirmation page that shows the order details and gets the form data'''
+    
     template_name = "restaurant/confirmation.html"    
 
     if request.POST:
