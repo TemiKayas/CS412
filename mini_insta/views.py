@@ -1,3 +1,6 @@
+# File: views.py #}
+# Author: Artemios Kayas (akayas@bu.edu) #
+# Description: Views page to display all my templates and holds logic to display pages
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from .models import Profile

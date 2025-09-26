@@ -1,3 +1,7 @@
+{# File: show_profile.html #}
+{# Author: Artemios Kayas (akayas@bu.edu) #}
+{# Description: Show the profile of a user #}
+{# Includes the profile image and the display name and displays them for each profile in the database #}
 {% extends "mini_insta/base.html" %}
 
 {% block content %}
@@ -8,6 +12,14 @@
             <p> {{profile.username}}</p>
             <p>{{profile.bio_text}}</p>
             <img src="{{profile.profile_image_url}}" alt="{{profile.display_name}}">
+        </div>
+        <div class="profile">
+            <h2>Followers</h2>
+            <p>TBD</p>
+            <h2>Following</h2>
+            <p>TBD</p>
+            <h2>Posts</h2>
+            <p>TBD</p>
         </div>
 </div>
 {% endblock %}
