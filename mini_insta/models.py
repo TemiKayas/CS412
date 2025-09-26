@@ -1,3 +1,6 @@
+# File: models.py #
+# Author: Artemios Kayas (akayas@bu.edu) #
+# Description: Models page to hold all my models for the mini_insta app
 from django.db import models
 
 # Create your models here.
