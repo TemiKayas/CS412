@@ -1,0 +1,33 @@
+{# File: base.html #}
+{# Author: Artemios Kayas (akayas@bu.edu) #}
+{# Description: Base template for the base template #}
+{# This is the base template for the mini_insta app. It includes the navigation bar and the footer. #}
+{% load static %}
+<html>
+    <head> 
+        <title> Mini Insta </title>
+        <link rel="stylesheet" href="{% static 'mini_insta.css' %}">
+    </head>
+
+    <body> 
+        {# navigation menu at top #}
+        <nav>
+            <ul>
+                <li>
+                    <a href="{% url 'show_all_profiles' %}">All Profiles</a>
+                </li>
+            </ul>
+        </nav>
+        
+        {# main content goes here #}
+        {% block content %}
+        {% endblock %}
+
+        {# footer with author info #}
+        <footer>
+            <p> This page was created by Artemios Kayas for CS412 assignment Mini Insta</p>
+        </footer>
+   
+    </body>
+
+</html>
