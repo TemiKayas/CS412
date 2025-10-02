@@ -1,0 +1,15 @@
+{# File: base.html #}
+{# Author: Artemios Kayas (akayas@bu.edu) #}
+{# Description: Show all profiles to show all profiles #}
+{# Includes the profile image and the display name and displays them for each profile in the database #}
+
+{% extends "mini_insta/base.html" %}
+
+{% block content %}
+<h1 style="text-align: center;"> Create Profile </h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Create Profile</button>
+</form>
+{% endblock %}

@@ -1,5 +1,4 @@
 
-/* Container for all profile cards */
 .profiles-container {
     display: flex;
     flex-wrap: wrap;
@@ -77,7 +76,6 @@ nav a:hover {
     color: #007bff;
 }
 
-/* Singular profile view container */
 .profile-container {
     display: flex;
     justify-content: center;
