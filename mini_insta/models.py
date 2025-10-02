@@ -16,6 +16,10 @@ class Profile(models.Model):
 
     def __str__(self): 
         return f'{self.username} aka {self.display_name}'
+    
+    def get_all_posts(self):
+        return Post.objects.filter(profile=self).order_by('-timestamp')
+        
 
 class Post(models.Model):
     '''Data stucture for the posts'''
@@ -26,6 +30,9 @@ class Post(models.Model):
 
     def __str__(self):
         return f'{self.profile} at {self.timestamp}'
+    
+    def get_all_photos(self):
+        return Photo.objects.filter(post=self)
 
 class Photo(models.Model):
     '''Data stucture for the photos'''

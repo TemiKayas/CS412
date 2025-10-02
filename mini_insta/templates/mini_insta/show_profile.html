@@ -21,5 +21,15 @@
             <h2>Posts</h2>
             <p>TBD</p>
         </div>
+        <div class ="profile">
+            {% for post in profile.get_all_posts %}
+                <h2>{{ post.caption }}</h2>
+                <p>{{ post.timestamp }}</p>
+                {% for photo in post.get_all_photos %}
+                    <img src="{{ photo.image_url }}" alt="{{ photo.post.caption }}">
+                {% endfor %}
+                
+            {% endfor %}
+        </div>
 </div>
 {% endblock %}
