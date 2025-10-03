@@ -139,8 +139,7 @@ footer {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
-    background-color: #ffcccc !important; /* Bright pink to test if CSS is loading */
-    border: 5px solid red !important; /* Obvious red border */
+    background-color: #fff;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
@@ -218,12 +217,6 @@ footer {
     margin-bottom: 15px;
 }
 
-.photo-timestamp {
-    color: #666;
-    font-size: 0.9em;
-    margin: 0;
-    font-style: italic;
-}
 
 .post-actions {
     text-align: center;
