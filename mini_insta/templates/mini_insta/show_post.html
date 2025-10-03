@@ -1,0 +1,34 @@
+{# File: show_post.html #}
+{# Author: Artemios Kayas (akayas@bu.edu) #}
+{# Description: Show a single post with its details and all associated photos #}
+{% extends "mini_insta/base.html" %}
+
+{% block content %}
+<div class="post-detail-container">
+    <div class="post-header">
+        <h1>Post by <a href="{% url 'show_profile' post.profile.pk %}">{{ post.profile.display_name }}</a></h1>
+        <p class="post-timestamp">Posted on {{ post.timestamp }}</p>
+    </div>
+    
+    <div class="post-content">
+        <div class="post-caption">
+            <h2>{{ post.caption }}</h2>
+        </div>
+        
+        <div class="post-photos">
+            <h3>Photos:</h3>
+            {% for photo in post.get_all_photos %}
+                <div class="photo-item">
+                    <img src="{{ photo.image_url }}" alt="{{ post.caption }}" class="post-photo">
+                </div>
+            {% empty %}
+                <p>No photos available for this post.</p>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <div class="post-actions">
+        <a href="{% url 'show_profile' post.profile.pk %}" class="back-link">Back to {{ post.profile.display_name }}'s Profile</a>
+    </div>
+</div>
+{% endblock %}

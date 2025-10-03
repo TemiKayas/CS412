@@ -3,7 +3,7 @@
 # Description: Views page to display all my templates and holds logic to display pages
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView
-from .models import Profile
+from .models import Profile, Post
 from .forms import CreateProfileForm
 
 class ProfileListView(ListView):
@@ -24,3 +24,9 @@ class CreateProfileView(CreateView):
     form_class = CreateProfileForm
     template_name = 'mini_insta/create_profile.html'
     success_url = '/mini_insta/'
+
+class PostDetailView(DetailView):
+    '''View for the post detail page'''
+    model = Post
+    template_name = 'mini_insta/show_post.html'
+    context_object_name = 'post'

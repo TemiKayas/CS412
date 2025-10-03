@@ -24,7 +24,6 @@
         <div class ="profile">
             <h2>Posts from {{profile.display_name}}</h2>
             {% for post in profile.get_all_posts %}
-                <h2>{{ post.caption }}</h2>
                 <p>{{ post.timestamp }}</p>
                 {% with first_photo=post.get_all_photos.first %}
                     {% if first_photo %}
@@ -33,6 +32,7 @@
                         <img src="https://i.redd.it/mqc2fhzd0vcb1.jpg" alt="No image available">
                     {% endif %}
                 {% endwith %}
+                <h2><a href="{% url 'show_post' post.pk %}">{{ post.caption }}</a></h2>
                 
             {% endfor %}
         </div>
