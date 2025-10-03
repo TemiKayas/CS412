@@ -22,12 +22,17 @@
             <p>TBD</p>
         </div>
         <div class ="profile">
+            <h2>Posts from {{profile.display_name}}</h2>
             {% for post in profile.get_all_posts %}
                 <h2>{{ post.caption }}</h2>
                 <p>{{ post.timestamp }}</p>
-                {% for photo in post.get_all_photos %}
-                    <img src="{{ photo.image_url }}" alt="{{ photo.post.caption }}">
-                {% endfor %}
+                {% with first_photo=post.get_all_photos.first %}
+                    {% if first_photo %}
+                        <img src="{{ first_photo.image_url }}" alt="{{ post.caption }}">
+                    {% else %}
+                        <img src="https://i.redd.it/mqc2fhzd0vcb1.jpg" alt="No image available">
+                    {% endif %}
+                {% endwith %}
                 
             {% endfor %}
         </div>
