@@ -14,6 +14,7 @@ class Profile(models.Model):
     bio_text = models.TextField(blank=True)
     join_date = models.DateField(auto_now=True)
 
+
     def __str__(self): 
         return f'{self.username} aka {self.display_name}'
     
@@ -39,8 +40,17 @@ class Photo(models.Model):
 
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     image_url = models.TextField(blank=True)
+    image_file=models.ImageField(blank=True)
     timestamp = models.DateField(auto_now=True)
 
+
+    def get_image_url(self):
+        if self.image_url:
+            return self.image_url
+        elif self.image_file:
+            return self.image_file.url
+        return None
+
     def __str__(self):
-        return f'{self.post} at {self.image_url}'
+        return f'{self.post} at {self.get_image_url()}'
 
