@@ -14,13 +14,6 @@ class CreateProfileForm(forms.ModelForm):
 
 class CreatePostForm(forms.ModelForm):
     '''Form for the post model'''
-    
-    image_url = forms.CharField(
-        required=False,
-        label='Image URL',
-        help_text='Enter the URL of an image for this post',
-        widget=forms.TextInput(attrs={'placeholder': 'https://example.com/image.jpg'})
-    )
 
     class Meta:
         '''Meta class for the post form'''

@@ -27,7 +27,7 @@
                 <p>{{ post.timestamp }}</p>
                 {% with first_photo=post.get_all_photos.first %}
                     {% if first_photo %}
-                        <img src="{{ first_photo.image_url }}" alt="{{ post.caption }}">
+                        <img src="{{ first_photo.get_image_url }}" alt="{{ post.caption }}">
                     {% else %}
                         <img src="https://i.redd.it/mqc2fhzd0vcb1.jpg" alt="No image available">
                     {% endif %}

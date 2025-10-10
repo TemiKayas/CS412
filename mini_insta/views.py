@@ -52,21 +52,30 @@ class CreatePostView(CreateView):
         # get the profile from the URL parameter
         profile_pk = self.kwargs['pk']
         profile = get_object_or_404(Profile, pk=profile_pk)
-        
+
         # attach the profile to the post before saving
         form.instance.profile = profile
-        
-        # save the post 
+
+        # save the post
         response = super().form_valid(form)
-        
+
+        # OLD CODE (commented out for backwards-compatibility):
         # create a photo object if image url was provided
-        image_url = form.cleaned_data.get('image_url')
-        if image_url:
+        # image_url = form.cleaned_data.get('image_url')
+        # if image_url:
+        #     Photo.objects.create(
+        #         post=self.object,
+        #         image_url=image_url
+        #     )
+
+        # NEW CODE: handle uploaded image files
+        files = self.request.FILES.getlist('files')
+        for file in files:
             Photo.objects.create(
-                post=self.object,  
-                image_url=image_url
+                post=self.object,
+                image_file=file
             )
-        
+
         return response
     
     def get_success_url(self):

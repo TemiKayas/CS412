@@ -19,7 +19,7 @@
             <h3>Photos:</h3>
             {% for photo in post.get_all_photos %}
                 <div class="photo-item">
-                    <img src="{{ photo.image_url }}" alt="{{ post.caption }}" class="post-photo">
+                    <img src="{{ photo.get_image_url }}" alt="{{ post.caption }}" class="post-photo">
                 </div>
             {% empty %}
                 <p>No photos available for this post.</p>
