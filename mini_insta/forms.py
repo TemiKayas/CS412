@@ -18,4 +18,12 @@ class CreatePostForm(forms.ModelForm):
     class Meta:
         '''Meta class for the post form'''
         model = Post
-        fields = ['caption']  
+        fields = ['caption']
+
+class UpdateProfileForm(forms.ModelForm):
+    '''Form for updating profile'''
+
+    class Meta:
+        '''Meta class for the update profile form'''
+        model = Profile
+        fields = ['display_name', 'profile_image_url', 'bio_text']  
