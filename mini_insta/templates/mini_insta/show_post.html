@@ -29,6 +29,8 @@
     
     <div class="post-actions">
         <a href="{% url 'show_profile' post.profile.pk %}" class="back-link">Back to {{ post.profile.display_name }}'s Profile</a>
+        <a href="{% url 'update_post' post.pk %}">Update</a>
+        <a href="{% url 'delete_post' post.pk %}">Delete</a>
     </div>
 </div>
 {% endblock %}

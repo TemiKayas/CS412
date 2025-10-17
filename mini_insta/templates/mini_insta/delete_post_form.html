@@ -1,0 +1,29 @@
+{# File: delete_post_form.html #}
+{# Author: Artemios Kayas (akayas@bu.edu) #}
+{# Description: Delete post confirmation form #}
+{% extends 'mini_insta/base.html' %}
+
+{% block title %}Delete Post{% endblock %}
+
+{% block content %}
+<div>
+    <h3>Delete Post</h3>
+
+    <p>Are you sure you want to delete this post?</p>
+
+    <div>
+        <p><strong>Posted by:</strong> {{ profile.display_name }}</p>
+        <p><strong>Caption:</strong> {{ post.caption }}</p>
+        <p><strong>Date:</strong> {{ post.timestamp }}</p>
+    </div>
+
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit">Confirm Delete</button>
+    </form>
+
+    <form action="{% url 'show_profile' profile.pk %}" method="GET">
+        <button type="submit">Cancel</button>
+    </form>
+</div>
+{% endblock %}

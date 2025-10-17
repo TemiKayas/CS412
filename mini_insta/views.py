@@ -2,7 +2,7 @@
 # Author: Artemios Kayas (akayas@bu.edu)
 # Description: Views page to display all my templates and holds logic to display pages
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse
 from .models import Profile, Post, Photo
 from .forms import CreateProfileForm, CreatePostForm, UpdateProfileForm
@@ -91,3 +91,35 @@ class UpdateProfileView(UpdateView):
     def get_success_url(self):
         '''Redirect to the profile page after successful update'''
         return reverse('show_profile', kwargs={'pk': self.object.pk})
+
+class DeletePostView(DeleteView):
+    '''View for deleting a post'''
+    model = Post
+    template_name = 'mini_insta/delete_post_form.html'
+
+    def get_context_data(self, **kwargs):
+        '''Add post and profile to context'''
+        context = super().get_context_data(**kwargs)
+        context['post'] = self.object
+        context['profile'] = self.object.profile
+        return context
+
+    def get_success_url(self):
+        '''Redirect to profile page after successful delete'''
+        return reverse('show_profile', kwargs={'pk': self.object.profile.pk})
+
+class UpdatePostView(UpdateView):
+    '''View for updating a post'''
+    model = Post
+    fields = ['caption']
+    template_name = 'mini_insta/update_post_form.html'
+
+    def get_context_data(self, **kwargs):
+        '''Add post to context'''
+        context = super().get_context_data(**kwargs)
+        context['post'] = self.object
+        return context
+
+    def get_success_url(self):
+        '''Redirect to post page after successful update'''
+        return reverse('show_post', kwargs={'pk': self.object.pk})
