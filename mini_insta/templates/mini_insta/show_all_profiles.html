@@ -7,15 +7,22 @@
 
 {% block content %}
 <h1 style="text-align: center;"> All Profiles </h1>
-<div class="profiles-container"> 
+<div class="profiles-container">
     {% for profile in profiles %}
-        <div class="profile_card"> 
+        <div class="profile_card">
             <h2>{{profile.display_name}}</h2>
             <p> {{profile.username}}</p>
             <p>{{profile.bio_text}}</p>
             <a href="{% url 'show_profile' profile.pk %}">
                 <img src="{{profile.profile_image_url}}" alt="{{profile.display_name}}">
             </a>
+            <div class="profile-nav">
+                <p>
+                    <a href="{% url 'show_feed' profile.pk %}">Feed</a> |
+                    <a href="{% url 'show_profile' profile.pk %}">Profile</a> |
+                    <a href="{% url 'create_post' profile.pk %}">Create Post</a>
+                </p>
+            </div>
         </div>
     {% endfor %}
 </div>

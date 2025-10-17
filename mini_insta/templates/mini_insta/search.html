@@ -1,0 +1,18 @@
+{# File: search.html #}
+{# Author: Artemios Kayas (akayas@bu.edu) #}
+{# Description: Search page with form to search profiles and posts #}
+{% extends "mini_insta/base.html" %}
+
+{% block content %}
+<h1 style="text-align: center;">Search</h1>
+
+<div class="search-container">
+    <form method="GET" action="{% url 'search' profile.pk %}">
+        <div class="form-group">
+            <label for="query">Search for profiles and posts:</label>
+            <input type="text" name="query" id="query" placeholder="Enter search term..." required>
+        </div>
+        <button type="submit">Search</button>
+    </form>
+</div>
+{% endblock %}

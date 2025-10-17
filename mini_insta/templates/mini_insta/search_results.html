@@ -1,0 +1,60 @@
+{# File: search_results.html #}
+{# Author: Artemios Kayas (akayas@bu.edu) #}
+{# Description: Display search results for profiles and posts #}
+{% extends "mini_insta/base.html" %}
+
+{% block content %}
+<h1 style="text-align: center;">Search Results for "{{ query }}"</h1>
+
+<div class="search-results-container">
+    <p><a href="{% url 'search' profile.pk %}">New Search</a></p>
+
+    <div class="profile-results">
+        <h2>Profiles</h2>
+        {% if profiles %}
+            {% for profile_result in profiles %}
+                <div class="profile-result-item">
+                    <img src="{{ profile_result.profile_image_url }}" alt="{{ profile_result.display_name }}" style="width: 50px; height: 50px; border-radius: 50%;">
+                    <div class="profile-info">
+                        <p><a href="{% url 'show_profile' profile_result.pk %}"><strong>{{ profile_result.display_name }}</strong></a></p>
+                        <p>@{{ profile_result.username }}</p>
+                        <p>{{ profile_result.bio_text|truncatewords:20 }}</p>
+                    </div>
+                </div>
+                <hr>
+            {% endfor %}
+        {% else %}
+            <p>No profiles found matching "{{ query }}"</p>
+        {% endif %}
+    </div>
+
+    <div class="post-results">
+        <h2>Posts</h2>
+        {% if posts %}
+            {% for post in posts %}
+                <div class="post-result-item">
+                    <div class="post-header">
+                        <img src="{{ post.profile.profile_image_url }}" alt="{{ post.profile.display_name }}" style="width: 40px; height: 40px; border-radius: 50%;">
+                        <p><a href="{% url 'show_profile' post.profile.pk %}">{{ post.profile.display_name }}</a></p>
+                        <p class="post-timestamp">{{ post.timestamp }}</p>
+                    </div>
+                    <div class="post-content">
+                        {% with first_photo=post.get_all_photos.first %}
+                            {% if first_photo %}
+                                <a href="{% url 'show_post' post.pk %}">
+                                    <img src="{{ first_photo.get_image_url }}" alt="{{ post.caption }}" style="max-width: 300px;">
+                                </a>
+                            {% endif %}
+                        {% endwith %}
+                        <p><strong>{{ post.caption|truncatewords:30 }}</strong></p>
+                        <p><a href="{% url 'show_post' post.pk %}">View Post</a></p>
+                    </div>
+                </div>
+                <hr>
+            {% endfor %}
+        {% else %}
+            <p>No posts found matching "{{ query }}"</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

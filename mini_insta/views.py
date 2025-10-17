@@ -4,6 +4,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse
+from django.db import models
 from .models import Profile, Post, Photo
 from .forms import CreateProfileForm, CreatePostForm, UpdateProfileForm
 
@@ -135,3 +136,58 @@ class ShowFollowingDetailView(DetailView):
     model = Profile
     template_name = 'mini_insta/show_following.html'
     context_object_name = 'profile'
+
+class PostFeedListView(ListView):
+    '''View for showing the post feed for a profile'''
+    model = Post
+    template_name = 'mini_insta/show_feed.html'
+    context_object_name = 'posts'
+
+    def get_queryset(self):
+        '''Return the posts for the profiles being followed'''
+        profile_pk = self.kwargs['pk']
+        profile = get_object_or_404(Profile, pk=profile_pk)
+        return profile.get_post_feed()
+
+    def get_context_data(self, **kwargs):
+        '''Add the profile to the context data'''
+        context = super().get_context_data(**kwargs)
+        profile_pk = self.kwargs['pk']
+        profile = get_object_or_404(Profile, pk=profile_pk)
+        context['profile'] = profile
+        return context
+
+class SearchView(ListView):
+    '''View for searching profiles and posts'''
+    template_name = 'mini_insta/search_results.html'
+    context_object_name = 'posts'
+
+    def dispatch(self, request, *args, **kwargs):
+        '''Handle the request and determine which template to show'''
+        if 'query' not in self.request.GET:
+            profile_pk = self.kwargs['pk']
+            profile = get_object_or_404(Profile, pk=profile_pk)
+            return render(request, 'mini_insta/search.html', {'profile': profile})
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_queryset(self):
+        '''Return posts that match the search query'''
+        query = self.request.GET.get('query', '')
+        return Post.objects.filter(caption__icontains=query)
+
+    def get_context_data(self, **kwargs):
+        '''Add profile, query, and matching profiles to context'''
+        context = super().get_context_data(**kwargs)
+        profile_pk = self.kwargs['pk']
+        profile = get_object_or_404(Profile, pk=profile_pk)
+        query = self.request.GET.get('query', '')
+
+        context['profile'] = profile
+        context['query'] = query
+        context['posts'] = self.get_queryset()
+        context['profiles'] = Profile.objects.filter(
+            models.Q(username__icontains=query) |
+            models.Q(display_name__icontains=query) |
+            models.Q(bio_text__icontains=query)
+        )
+        return context

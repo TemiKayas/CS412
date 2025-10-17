@@ -44,6 +44,11 @@ class Profile(models.Model):
         '''Return the count of profiles being followed'''
         return Follow.objects.filter(follower_profile=self).count()
 
+    def get_post_feed(self):
+        '''Return a QuerySet of Posts from profiles that this profile is following'''
+        following_profiles = Follow.objects.filter(follower_profile=self).values_list('profile', flat=True)
+        return Post.objects.filter(profile__in=following_profiles).order_by('-timestamp')
+
 
 class Post(models.Model):
     '''Data stucture for the posts'''
