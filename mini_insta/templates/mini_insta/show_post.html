@@ -11,10 +11,14 @@
     </div>
     
     <div class="post-content">
+        <div class="post-likes">
+            <p><strong>{{ post.get_likes.count }} likes</strong></p>
+        </div>
+
         <div class="post-caption">
             <h2>{{ post.caption }}</h2>
         </div>
-        
+
         <div class="post-photos">
             <h3>Photos:</h3>
             {% for photo in post.get_all_photos %}
@@ -23,6 +27,18 @@
                 </div>
             {% empty %}
                 <p>No photos available for this post.</p>
+            {% endfor %}
+        </div>
+
+        <div class="post-comments">
+            <h3>Comments:</h3>
+            {% for comment in post.get_all_comments %}
+                <div class="comment-item">
+                    <p><strong><a href="{% url 'show_profile' comment.profile.pk %}">{{ comment.profile.display_name }}</a>:</strong> {{ comment.text }}</p>
+                    <p class="comment-timestamp">{{ comment.timestamp }}</p>
+                </div>
+            {% empty %}
+                <p>No comments yet.</p>
             {% endfor %}
         </div>
     </div>

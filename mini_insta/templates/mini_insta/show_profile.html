@@ -16,9 +16,9 @@
         </div>
         <div class="profile">
             <h2>Followers</h2>
-            <p>TBD</p>
+            <p><a href="{% url 'show_followers' profile.pk %}">{{ profile.get_num_followers }} followers</a></p>
             <h2>Following</h2>
-            <p>TBD</p>
+            <p><a href="{% url 'show_following' profile.pk %}">{{ profile.get_num_following }} following</a></p>
             <h2>Posts</h2>
             <p>TBD</p>
         </div>

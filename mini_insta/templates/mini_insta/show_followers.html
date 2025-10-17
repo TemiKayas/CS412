@@ -1,0 +1,24 @@
+{# File: show_followers.html #}
+{# Author: Artemios Kayas (akayas@bu.edu) #}
+{# Description: Show the followers of a profile #}
+{% extends "mini_insta/base.html" %}
+
+{% block content %}
+<h1 style="text-align: center;">Followers of {{profile.display_name}}</h1>
+<div class="profile-container">
+    <div class="profile">
+        <h2>Followers ({{ profile.get_num_followers }})</h2>
+        {% if profile.get_followers %}
+            {% for follower in profile.get_followers %}
+                <div class="follower-item">
+                    <img src="{{follower.profile_image_url}}" alt="{{follower.display_name}}" style="width: 50px; height: 50px;">
+                    <p><a href="{% url 'show_profile' follower.pk %}">{{follower.display_name}} ({{follower.username}})</a></p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No followers yet.</p>
+        {% endif %}
+        <p><a href="{% url 'show_profile' profile.pk %}">Back to Profile</a></p>
+    </div>
+</div>
+{% endblock %}
