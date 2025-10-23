@@ -12,7 +12,9 @@
             <p> {{profile.username}}</p>
             <p>{{profile.bio_text}}</p>
             <img src="{{profile.profile_image_url}}" alt="{{profile.display_name}}">
-            <p><a href="{% url 'update_profile' profile.pk %}">Update Profile</a></p>
+            {% if user.is_authenticated and profile.user == user %}
+                <p><a href="{% url 'update_profile' %}">Update Profile</a></p>
+            {% endif %}
         </div>
         <div class="profile">
             <h2>Followers</h2>

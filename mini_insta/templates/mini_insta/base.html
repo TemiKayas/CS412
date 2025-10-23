@@ -9,7 +9,16 @@
         <link rel="stylesheet" href="{% static 'mini_insta.css' %}">
     </head>
 
-    <body> 
+    <body>
+        {# authentication status display #}
+        <div style="background-color: #f0f0f0; padding: 10px; margin-bottom: 10px;">
+            {% if user.is_authenticated %}
+                <strong>Logged in as:</strong> {{ user.username }} (User ID: {{ user.id }})
+            {% else %}
+                <strong>Not logged in</strong>
+            {% endif %}
+        </div>
+
         {# navigation menu at top #}
         <nav>
             <ul>
@@ -25,12 +34,25 @@
 
         {# footer with author info #}
         <footer>
-            {% if profile %}
-                <p><a href="{% url 'show_feed' profile.pk %}">Home (Feed)</a></p>
-                <p><a href="{% url 'show_profile' profile.pk %}">Profile</a></p>
-                <p><a href="{% url 'create_post' profile.pk %}">Create New Post</a></p>
-                <p><a href="{% url 'search' profile.pk %}">Search</a></p>
+            {% if user.is_authenticated %}
+                {% if profile and profile.user == user %}
+                    {# Links for the authenticated user's own profile #}
+                    <p><a href="{% url 'show_feed' %}">Home (Feed)</a></p>
+                    <p><a href="{% url 'show_profile' profile.pk %}">Profile</a></p>
+                    <p><a href="{% url 'create_post' %}">Create New Post</a></p>
+                    <p><a href="{% url 'search' %}">Search</a></p>
+                {% elif profile %}
+                    {# Links for viewing someone else's profile #}
+                    <p><a href="{% url 'show_profile' profile.pk %}">View Profile</a></p>
+                    <p><a href="{% url 'show_all_profiles' %}">All Profiles</a></p>
+                {% else %}
+                    {# Generic authenticated user without a specific profile context #}
+                    <p><a href="{% url 'show_feed' %}">Home (Feed)</a></p>
+                    <p><a href="{% url 'search' %}">Search</a></p>
+                    <p><a href="{% url 'show_all_profiles' %}">All Profiles</a></p>
+                {% endif %}
             {% else %}
+                {# Links for non-authenticated users #}
                 <p><a href="{% url 'show_all_profiles' %}">All Profiles</a></p>
             {% endif %}
             <p> This page was created by Artemios Kayas for CS412 assignment Mini Insta</p>

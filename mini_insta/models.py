@@ -2,12 +2,14 @@
 # Author: Artemios Kayas (akayas@bu.edu) #
 # Description: Models page to hold all my models for the mini_insta app
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
 class Profile(models.Model):
     '''Data structure for the profile model '''
 
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
     username = models.TextField(blank=True)
     display_name = models.TextField(blank=True)
     profile_image_url = models.TextField(blank=True)

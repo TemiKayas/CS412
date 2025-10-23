@@ -153,3 +153,7 @@ if socket.gethostname() == CS_DEPLOYMENT_HOSTNAME:
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 MEDIA_URL = "/media/"
+
+# Authentication settings
+LOGIN_REDIRECT_URL = '/mini_insta/'
+LOGIN_URL = '/mini_insta/login/'
