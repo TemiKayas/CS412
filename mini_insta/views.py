@@ -2,7 +2,7 @@
 # Author: Artemios Kayas (akayas@bu.edu)
 # Description: Views page to display all my templates and holds logic to display pages
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from django.urls import reverse
 from django.db import models
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -12,9 +12,20 @@ from .forms import CreateProfileForm, CreatePostForm, UpdateProfileForm
 class ProfileLoginRequiredMixin(LoginRequiredMixin):
     '''Custom mixin that requires login and provides helper to get logged-in user's Profile'''
 
+    def get_login_url(self):
+        '''Return the URL to the login page'''
+        return reverse('login')
+
     def get_profile(self):
-        '''Return the Profile associated with the logged-in user'''
-        return get_object_or_404(Profile, user=self.request.user)
+        '''Return the Profile associated with the logged-in user
+        Note: Uses .first() to handle cases where multiple Profiles
+        are associated with the same User (e.g., from migration defaults)'''
+        profile = Profile.objects.filter(user=self.request.user).first()
+        if not profile:
+            # If no profile found, raise 404
+            from django.http import Http404
+            raise Http404("No Profile found for this user")
+        return profile
 
 class ProfileListView(ListView):
     '''View for the show all page'''
@@ -195,3 +206,17 @@ class SearchView(ProfileLoginRequiredMixin, ListView):
             models.Q(bio_text__icontains=query)
         )
         return context
+
+class LogoutConfirmationView(TemplateView):
+    '''View for the logout confirmation page'''
+    template_name = 'mini_insta/logged_out.html'
+
+class MyProfileView(ProfileLoginRequiredMixin, DetailView):
+    '''Redirect to the logged-in user's profile'''
+    model = Profile
+    template_name = 'mini_insta/show_profile.html'
+    context_object_name = 'profile'
+
+    def get_object(self):
+        '''Return the Profile of the logged-in user'''
+        return self.get_profile()

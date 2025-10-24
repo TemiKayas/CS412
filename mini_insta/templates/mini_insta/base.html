@@ -10,21 +10,27 @@
     </head>
 
     <body>
-        {# authentication status display #}
-        <div style="background-color: #f0f0f0; padding: 10px; margin-bottom: 10px;">
-            {% if user.is_authenticated %}
-                <strong>Logged in as:</strong> {{ user.username }} (User ID: {{ user.id }})
-            {% else %}
-                <strong>Not logged in</strong>
-            {% endif %}
-        </div>
-
         {# navigation menu at top #}
         <nav>
             <ul>
                 <li>
                     <a href="{% url 'show_all_profiles' %}">All Profiles</a>
                 </li>
+                {% if user.is_authenticated %}
+                    <li>
+                        <a href="{% url 'my_profile' %}">My Profile</a>
+                    </li>
+                    <li>
+                        <form method="post" action="{% url 'logout' %}" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit">Logout</button>
+                        </form>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="{% url 'login' %}">Login</a>
+                    </li>
+                {% endif %}
             </ul>
         </nav>
         
