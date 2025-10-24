@@ -1,15 +1,24 @@
-{# File: base.html #}
+{# File: create_profile.html #}
 {# Author: Artemios Kayas (akayas@bu.edu) #}
-{# Description: Show all profiles to show all profiles #}
-{# Includes the profile image and the display name and displays them for each profile in the database #}
+{# Description: Create a new user account and profile #}
 
 {% extends "mini_insta/base.html" %}
 
 {% block content %}
-<h1 style="text-align: center;"> Create Profile </h1>
+<h1 style="text-align: center;">Create Profile</h1>
+
+<p style="text-align: center;">Create your user account and profile to join Mini Insta!</p>
+
 <form method="post">
     {% csrf_token %}
+
+    <h2>User Account Information</h2>
+    {{ user_creation_form.as_p }}
+
+    <h2>Profile Information</h2>
     {{ form.as_p }}
+
     <button type="submit">Create Profile</button>
+    <a href="{% url 'show_all_profiles' %}">Cancel</a>
 </form>
 {% endblock %}

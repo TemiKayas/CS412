@@ -6,6 +6,8 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.urls import reverse
 from django.db import models
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
 from .models import Profile, Post, Photo
 from .forms import CreateProfileForm, CreatePostForm, UpdateProfileForm
 
@@ -44,7 +46,39 @@ class CreateProfileView(CreateView):
     model = Profile
     form_class = CreateProfileForm
     template_name = 'mini_insta/create_profile.html'
-    success_url = '/mini_insta/'
+
+    def get_context_data(self, **kwargs):
+        '''Add UserCreationForm to the context'''
+        context = super().get_context_data(**kwargs)
+        # Add the UserCreationForm to the context
+        context['user_creation_form'] = UserCreationForm()
+        return context
+
+    def form_valid(self, form):
+        '''Handle the form submission - create User and attach to Profile'''
+        # Reconstruct the UserCreationForm from POST data
+        user_creation_form = UserCreationForm(self.request.POST)
+
+        # Validate and save the User
+        if user_creation_form.is_valid():
+            # Save the User
+            user = user_creation_form.save()
+
+            # Log the user in
+            login(self.request, user, backend='django.contrib.auth.backends.ModelBackend')
+
+            # Attach the User to the Profile instance
+            form.instance.user = user
+
+            # Delegate to the superclass form_valid
+            return super().form_valid(form)
+        else:
+            # If UserCreationForm is invalid, re-display the form with errors
+            return self.form_invalid(form)
+
+    def get_success_url(self):
+        '''Redirect to the newly created profile page'''
+        return reverse('show_profile', kwargs={'pk': self.object.pk})
 
 class PostDetailView(DetailView):
     '''View for the post detail page'''

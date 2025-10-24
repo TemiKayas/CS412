@@ -26,5 +26,5 @@
     <input type="hidden" name="next" value="{% url 'show_all_profiles' %}">
 </form>
 
-<p>Don't have an account? Contact the administrator.</p>
+<p>Don't have an account? <a href="{% url 'create_profile' %}">Create an account</a></p>
 {% endblock %}
