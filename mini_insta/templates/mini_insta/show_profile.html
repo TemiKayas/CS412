@@ -14,6 +14,13 @@
             <img src="{{profile.profile_image_url}}" alt="{{profile.display_name}}">
             {% if user.is_authenticated and profile.user == user %}
                 <p><a href="{% url 'update_profile' %}">Update Profile</a></p>
+            {% elif user.is_authenticated and logged_in_profile %}
+                {# Show Follow/Unfollow button for other profiles when logged in #}
+                {% if is_following %}
+                    <p><a href="{% url 'unfollow_profile' profile.pk %}"><button>Unfollow</button></a></p>
+                {% else %}
+                    <p><a href="{% url 'follow_profile' profile.pk %}"><button>Follow</button></a></p>
+                {% endif %}
             {% endif %}
         </div>
         <div class="profile">

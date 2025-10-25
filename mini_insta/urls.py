@@ -21,6 +21,12 @@ urlpatterns = [
     path('profile/<int:pk>/following/', ShowFollowingDetailView.as_view(), name='show_following'),
     path('profile/feed/', PostFeedListView.as_view(), name='show_feed'),
     path('profile/search/', SearchView.as_view(), name='search'),
+    # Follow/Unfollow URLs
+    path('profile/<int:pk>/follow/', FollowProfileView.as_view(), name='follow_profile'),
+    path('profile/<int:pk>/delete_follow/', UnfollowProfileView.as_view(), name='unfollow_profile'),
+    # Like/Unlike URLs
+    path('post/<int:pk>/like/', LikePostView.as_view(), name='like_post'),
+    path('post/<int:pk>/delete_like/', UnlikePostView.as_view(), name='unlike_post'),
     # Authentication URLs
     path('login/', auth_views.LoginView.as_view(template_name='mini_insta/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(next_page='logout_confirmation'), name='logout'),

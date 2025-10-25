@@ -20,6 +20,15 @@
                 <p>
                     <a href="{% url 'show_profile' profile.pk %}">View Profile</a>
                 </p>
+                {% if user.is_authenticated and logged_in_profile %}
+                    {% if profile != logged_in_profile %}
+                        {% if profile.pk in following_ids %}
+                            <p><a href="{% url 'unfollow_profile' profile.pk %}"><button>Unfollow</button></a></p>
+                        {% else %}
+                            <p><a href="{% url 'follow_profile' profile.pk %}"><button>Follow</button></a></p>
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
             </div>
         </div>
     {% endfor %}

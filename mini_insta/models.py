@@ -51,6 +51,10 @@ class Profile(models.Model):
         following_profiles = Follow.objects.filter(follower_profile=self).values_list('profile', flat=True)
         return Post.objects.filter(profile__in=following_profiles).order_by('-timestamp')
 
+    def is_following(self, other_profile):
+        '''Check if this profile is following another profile'''
+        return Follow.objects.filter(profile=other_profile, follower_profile=self).exists()
+
 
 class Post(models.Model):
     '''Data stucture for the posts'''
@@ -72,6 +76,10 @@ class Post(models.Model):
     def get_likes(self):
         '''Return all likes on this post'''
         return Like.objects.filter(post=self)
+
+    def is_liked_by(self, profile):
+        '''Check if this post is liked by a specific profile'''
+        return Like.objects.filter(post=self, profile=profile).exists()
 
 class Photo(models.Model):
     '''Data stucture for the photos'''
