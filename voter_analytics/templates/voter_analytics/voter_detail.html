@@ -1,0 +1,33 @@
+
+{% extends 'voter_analytics/base.html' %}
+
+{% block title %}{{ voter.first_name }} {{ voter.last_name }}{% endblock %}
+
+{% block content %}
+<p><a href="{% url 'voters' %}">&larr; Back to Voter List</a></p>
+
+<h1>{{ voter.first_name }} {{ voter.last_name }}</h1>
+
+<h2>Basic Information</h2>
+<p>Voter ID: {{ voter.voter_id }}</p>
+<p>Date of Birth: {{ voter.date_of_birth|date:"F d, Y" }}</p>
+<p>Date of Registration: {{ voter.date_of_registration|date:"F d, Y" }}</p>
+<p>Party Affiliation: {{ voter.party_affiliation|default:"Not Specified" }}</p>
+<p>Voter Score: {{ voter.voter_score }}</p>
+<p>Precinct Number: {{ voter.precinct_number }}</p>
+
+<h2>Address</h2>
+<p>Street: {{ voter.street_number }} {{ voter.street_name }}</p>
+<p>Apartment: {{ voter.apartment_number|default:"N/A" }}</p>
+<p>Zip Code: {{ voter.zip_code }}</p>
+<p><a href="{{ google_maps_url }}" target="_blank">View on Google Maps</a></p>
+
+<h2>Voting History</h2>
+<p>2020 State Election: {% if voter.v20state %}Yes{% else %}No{% endif %}</p>
+<p>2021 Town Election: {% if voter.v21town %}Yes{% else %}No{% endif %}</p>
+<p>2021 Primary: {% if voter.v21primary %}Yes{% else %}No{% endif %}</p>
+<p>2022 General Election: {% if voter.v22general %}Yes{% else %}No{% endif %}</p>
+<p>2023 Town Election: {% if voter.v23town %}Yes{% else %}No{% endif %}</p>
+
+<p><a href="{% url 'voters' %}">&larr; Back to Voter List</a></p>
+{% endblock %}
