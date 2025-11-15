@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Random Dad Joke</title>
+</head>
+<body>
+    <h1>Random Dad Joke</h1>
+
+    {% if joke %}
+        <h2>Joke:</h2>
+        <p>{{ joke.text }}</p>
+        <p><em>Contributed by: {{ joke.contributor_name }}</em></p>
+        <p><small>{{ joke.created_at }}</small></p>
+    {% else %}
+        <p>No jokes available yet!</p>
+    {% endif %}
+
+    <hr>
+
+    {% if picture %}
+        <h2>Picture:</h2>
+        <img src="{{ picture.image_url }}" alt="Silly picture" style="max-width: 500px;">
+        <p><em>Contributed by: {{ picture.contributor_name }}</em></p>
+        <p><small>{{ picture.created_at }}</small></p>
+    {% else %}
+        <p>No pictures available yet!</p>
+    {% endif %}
+
+    <hr>
+    <p>
+        <a href="{% url 'dadjokes:random' %}">Get Another Random Joke & Picture</a> |
+        <a href="{% url 'dadjokes:jokes' %}">All Jokes</a> |
+        <a href="{% url 'dadjokes:pictures' %}">All Pictures</a>
+    </p>
+</body>
+</html>

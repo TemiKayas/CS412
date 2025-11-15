@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>All Dad Jokes</title>
+</head>
+<body>
+    <h1>All Dad Jokes</h1>
+
+    {% if jokes %}
+        {% for joke in jokes %}
+            <div style="margin-bottom: 20px; border: 1px solid #ccc; padding: 10px;">
+                <p>{{ joke.text }}</p>
+                <p><em>Contributed by: {{ joke.contributor_name }}</em></p>
+                <p><small>{{ joke.created_at }}</small></p>
+                <p><a href="{% url 'dadjokes:joke' joke.pk %}">View Details</a></p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No jokes available yet!</p>
+    {% endif %}
+
+    <hr>
+    <p>
+        <a href="{% url 'dadjokes:index' %}">Random Joke & Picture</a> |
+        <a href="{% url 'dadjokes:pictures' %}">All Pictures</a>
+    </p>
+</body>
+</html>

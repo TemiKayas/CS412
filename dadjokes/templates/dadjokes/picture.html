@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Silly Picture</title>
+</head>
+<body>
+    <h1>Silly Picture</h1>
+
+    <div style="border: 1px solid #ccc; padding: 20px;">
+        <img src="{{ picture.image_url }}" alt="Silly picture" style="max-width: 600px;">
+        <p><em>Contributed by: {{ picture.contributor_name }}</em></p>
+        <p><small>{{ picture.created_at }}</small></p>
+    </div>
+
+    <hr>
+    <p>
+        <a href="{% url 'dadjokes:index' %}">Random Joke & Picture</a> |
+        <a href="{% url 'dadjokes:jokes' %}">All Jokes</a> |
+        <a href="{% url 'dadjokes:pictures' %}">All Pictures</a>
+    </p>
+</body>
+</html>

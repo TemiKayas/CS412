@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>All Pictures</title>
+</head>
+<body>
+    <h1>All Silly Pictures</h1>
+
+    {% if pictures %}
+        {% for picture in pictures %}
+            <div style="margin-bottom: 20px; border: 1px solid #ccc; padding: 10px;">
+                <img src="{{ picture.image_url }}" alt="Silly picture" style="max-width: 400px;">
+                <p><em>Contributed by: {{ picture.contributor_name }}</em></p>
+                <p><small>{{ picture.created_at }}</small></p>
+                <p><a href="{% url 'dadjokes:picture' picture.pk %}">View Details</a></p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No pictures available yet!</p>
+    {% endif %}
+
+    <hr>
+    <p>
+        <a href="{% url 'dadjokes:index' %}">Random Joke & Picture</a> |
+        <a href="{% url 'dadjokes:jokes' %}">All Jokes</a>
+    </p>
+</body>
+</html>
